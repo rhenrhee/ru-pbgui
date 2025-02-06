@@ -1,16 +1,14 @@
-# GUI for Passivbot
+# GUI-RU for Passivbot
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y216Q3QS)
-
-## Contact/Support on Telegram: https://t.me/+kwyeyrmjQ-lkYTJk
+## Связь/Поддержка в Telegram: https://t.me/passivbotru
 ## Join one of my copytrading to support: https://manicpt.streamlit.app/
 I offer API-Service where I run passivbot for you as a Service.
 Just contact me on Telegram for more information.
 
-# v1.33
+# v1.33 (старшая версия сохрнена, однако внесены изменения в связи с невозможностью российских пользователей получить api на площадке coinmarketcap) 
 
-### Overview
-Passivbot GUI (pbgui) is a WEB Interface for Passivbot programed in python with streamlit
+### Общие сведения
+Passivbot GUI-RU (pbgui_ru) - это графическая надстройка (веб-интверфейс) для Passivbot, написанный на streamlit
 
 It has the following functions:
 - Running, backtesting, and optimization Passivbot v7 and v6 (single and multi).
@@ -23,38 +21,41 @@ It has the following functions:
 - Installing and updating your VPS with just a few clicks.
 - And much more to easily manage Passivbot.
 
-### Requirements
+### Требования
 - Python 3.10
 - Streamlit 1.40.0
 - Linux
 
-### Recommendation
+### Рекомендации
 
 - Master Server: Linux with 32GB of memory and 8 CPUs.
 - VPS for Running Passivbot: Minimum specifications of 1 CPU, 1GB Memory, and 10GB SSD.
 
 ### Get your VPS for running passivbot
 
-I recommend the provider IONOS, as their smallest VPS plan is available for only 1 Euro \
-I have been using their services for over a year without any outages \
-Please use my [referral link](https://aklam.io/esMFvG) to obtain a VPS from IONOS \
-A good alternative is a VPS from Contabo. Please use my [referral link](https://www.tkqlhce.com/click-101296145-12454592)
+Для российских пользователей проверенным хостингом является FatsVPS, который зарекомендовал себя 
+стабильной работой сервиса и качественной поддержкой. 
+Официальный сайт: https://fastvps.ru/
+Можете воспользоваться реферальной ссылкой: 
+https://fastvps.ru/c_8509cc316996ec4eaf27964c41085e31
 
-### Support:
-If you like to support pbgui, please join one of my copytradings:\
-If you don't have an bybit account, please use my Referral Code: XZAJLZ https://www.bybit.com/invite?ref=XZAJLZ \
-Here are all my copytradings and statistics of them: https://manicpt.streamlit.app/
+### Поддержка:
+Если Вам хочется поддержать наш проект и нашу ветку PBGUI, можете воспользоваться ссылками на наш 
+копитрейдинг на следующих площадках: 
+(будет представлено позже)
 
-## Installation
+## Установка
 
-### Ubuntu installer
+### Установщик для Ubuntu
 
-There is a install.sh for Ubuntu. Working on Ubuntu from 20.04 to latest 24.04
+There is a install.sh for Ubuntu. Working on Ubuntu from 22.04 to latest 24.04
+*Не используйте дистрибутивы Ubuntu старше или младше указанных, иначе Вы можете столкнуться 
+с проблемами зависимостей.
 ```
 curl -L https://raw.githubusercontent.com/msei99/pbgui/refs/heads/main/install.sh | bash
 ```
 
-### Manual installation for all Linux distributions
+### Ручная установка подходящая для любых дистрибутивов Linux
 
 Clone pbgui and passivbot v6 and v7
 ```
@@ -98,7 +99,8 @@ Want to use **Docker** instead? Follow this [Quickstart guide](https://github.co
 ## Running
 ```
 streamlit run pbgui.py
-
+*Для запуска в фоновом режиме, когда необходимо, чтобы PBGUI-RU работал в фоновом режиме, используйте команду:
+nohup streamlit run pbgui.py &
 ```
 Open http://localhost:8501 with Browser\
 Password = PBGui$Bot!\
