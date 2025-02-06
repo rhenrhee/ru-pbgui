@@ -11,6 +11,7 @@ def edit_v7_instance():
     # Navigation
     with st.sidebar:
         if st.button(":material/home:"):
+            v7_instance.clean_cf_session_state()
             del st.session_state.edit_v7_instance
             del st.session_state.v7_instances
             st.session_state.v7_instances = V7Instances()
@@ -24,6 +25,7 @@ def edit_v7_instance():
         if st.button("Backtest"):
             st.session_state.bt_v7 = BacktestV7Item(v7_instance.config.config_file)
             del st.session_state.edit_v7_instance
+            del st.session_state.cf_data
             if "bt_v7_queue" in st.session_state:
                 del st.session_state.bt_v7_queue
             if "bt_v7_results" in st.session_state:
@@ -134,6 +136,11 @@ st.header("PBv7 Run", divider="red")
 # Check if PB7 is installed
 if not is_pb7_installed():
     st.warning('Passivbot Version 7.x is not installed', icon="⚠️")
+    st.stop()
+
+# Check if CoinData is configured
+if st.session_state.pbcoindata.api_error:
+    st.warning('Coin Data API is not configured / Go to Coin Data and configure your API-Key', icon="⚠️")
     st.stop()
 
 if 'edit_v7_instance' in st.session_state:

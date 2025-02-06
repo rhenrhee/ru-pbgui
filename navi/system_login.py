@@ -8,6 +8,7 @@ from Instance import Instances
 from RunV7 import V7Instances
 from Multi import MultiInstances
 from User import Users
+from PBCoinData import CoinData
 import toml
 import os
 from pathlib import Path, PurePath
@@ -147,13 +148,64 @@ def do_init():
         else:
             st.session_state.master = False
 
-    st.text("Passivbot V6 status" + pbdir_ok)
+    col1, col2 = st.columns([5,1], vertical_alignment="bottom")
+    with col1:
+        st.text_input("Passivbot V6 path " + pbdir_ok, value=st.session_state.pbdir, key='input_pbdir')
+    with col2:
+        if st.button("Browse", key='button_change_pbdir'):
+            del st.session_state.input_pbdir
+            change_ini("main", "pbdir")
+            if "users" in st.session_state:
+                del st.session_state.users
 
-    st.text("Passivbot V6 python interpreter (venv/bin/python) " + pbvenv_ok)
-    
-    st.text("Passivbot V7 status " + pb7dir_ok)
+    col1, col2 = st.columns([5,1], vertical_alignment="bottom")
+    with col1:
+        st.text_input("Passivbot V6 python interpreter (venv/bin/python) " + pbvenv_ok, value=st.session_state.pbvenv, key='input_pbvenv')
+    with col2:
+        if st.button("Browse", key='button_change_pbvenv'):
+            del st.session_state.input_pbvenv
+            change_ini("main", "pbvenv")
 
-    st.text("Passivbot V7 python interpreter (venv/bin/python) " + pb7venv_ok)
+    col1, col2 = st.columns([5,1], vertical_alignment="bottom")
+    with col1:
+        st.text_input("Passivbot V7 path " + pb7dir_ok, value=st.session_state.pb7dir, key='input_pb7dir')
+    with col2:
+        if st.button("Browse", key='button_change_pb7dir'):
+            del st.session_state.input_pb7dir
+            change_ini("main", "pb7dir")
+            if "users" in st.session_state:
+                del st.session_state.users
+
+    col1, col2 = st.columns([5,1], vertical_alignment="bottom")
+    with col1:
+        if "input_pb7venv" in st.session_state:
+            if st.session_state.input_pb7venv != st.session_state.pb7venv:
+                st.session_state.pb7venv = st.session_state.input_pb7venv
+                save_ini("main", "pb7venv", st.session_state.pb7venv)
+        st.text_input("Passivbot V7 python interpreter (venv/bin/python) " + pb7venv_ok, value=st.session_state.pb7venv, key='input_pb7venv')
+    with col2:
+        if st.button("Browse", key='button_change_pb7venv'):
+            del st.session_state.input_pb7venv
+            change_ini("main", "pb7venv")
+
+    col1, col2 = st.columns([5,1], vertical_alignment="bottom")
+    with col1:
+        if "input_pbname" in st.session_state:
+            if st.session_state.input_pbname != st.session_state.pbname:
+                st.session_state.pbname = st.session_state.input_pbname
+                save_ini("main", "pbname", st.session_state.pbname)
+        st.text_input("Bot Name", value=st.session_state.pbname, key="input_pbname", max_chars=32)
+    with col2:
+        if "input_master" in st.session_state:
+            if st.session_state.input_master != st.session_state.master:
+                st.session_state.master = st.session_state.input_master
+                if st.session_state.master:
+                    save_ini("main", "role", "master")
+                    st.session_state.role = "master"
+                else:
+                    save_ini("main", "role", "slave")
+                    st.session_state.role = "slave"
+        st.checkbox("Master", value=st.session_state.master, key="input_master", help=pbgui_help.role)
 
     # Check if any passivbot is installed
     if not any([is_pb7_installed(), is_pb_installed()]):
@@ -190,7 +242,9 @@ def do_init():
     # Check if any users are configured
     if not st.session_state.users.list():
         st.warning('No users configured / Go to Setup API-Keys and configure your first user', icon="⚠️")
-        st.stop()
+    # Check if CoinData configured
+    if not st.session_state.pbcoindata.fetch_api_status():
+        st.warning('Coin Data API is not configured / Go to Coin Data and configure your API-Key', icon="⚠️")
     
     # Add a horizontal divider
     st.markdown("---")
@@ -199,8 +253,8 @@ def do_init():
     change_password()
 
 # Page Setup
-set_page_config("Добро пожаловать!")
-st.header("С возвращением, TradeGUI (preRelease)", divider="red")
+set_page_config("Welcome")
+st.header("Welcome to Passivbot GUI", divider="red")
     
 # Show Login-Dialog on demand
 check_password()

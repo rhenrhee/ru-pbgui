@@ -44,7 +44,22 @@ def opt_v7():
                     info_popup("Name is empty")
                 elif not opt_v7.config.config_file:
                     info_popup("Optimize not saved")
-    st.subheader(f"Create/Edit: {opt_v7.name}")
+        
+        st.markdown("---")
+        st.selectbox('Preset...',opt_v7.find_presets(), key="opt_v7_preset_select")
+        col1, col2, col3 = st.columns(3)
+        # Load, Save, Delete Buttons 
+        if col1.button(":material/folder: Load", key="opt_v7_preset_load"):
+            opt_v7.preset_load(st.session_state.opt_v7_preset_select)
+            st.rerun()
+        if col2.button(":material/save: Save", key="opt_v7_preset_save"):
+            if opt_v7.preset_save():
+                st.rerun()
+        if col3.button(":material/delete: Del", key="opt_v7_preset_delete"):
+            opt_v7.preset_remove(st.session_state.opt_v7_preset_select)
+            st.rerun()
+
+    st.subheader(f"Create/Edit")
     opt_v7.edit()
 
 def opt_v7_list():
@@ -146,6 +161,11 @@ st.header("PBv7 Optimize", divider="red")
 # Check if PB7 is installed
 if not is_pb7_installed():
     st.warning('Passivbot Version 7.x is not installed', icon="⚠️")
+    st.stop()
+
+# Check if CoinData is configured
+if st.session_state.pbcoindata.api_error:
+    st.warning('Coin Data API is not configured / Go to Coin Data and configure your API-Key', icon="⚠️")
     st.stop()
 
 if "opt_v7_results" in st.session_state:

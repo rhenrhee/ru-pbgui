@@ -1,6 +1,6 @@
 import streamlit as st
 import pbgui_help
-from pbgui_func import set_page_config, is_session_state_not_initialized, info_popup, error_popup, is_authenticted, get_navi_paths
+from pbgui_func import set_page_config, is_session_state_not_initialized, info_popup, error_popup, is_authenticted, get_navi_paths, sync_api
 from VPSManager import VPSManager, VPS
 import re
 from Monitor import Monitor
@@ -141,9 +141,7 @@ def list_vps():
     st.data_editor(data=d, height=36+(len(d))*35, use_container_width=True, key=f"vps_overview_{st.session_state.ed_key}")
     st.info("Select your VPS in the sidebar to get a detailed VPS report.")
     with st.sidebar:
-        if not all_api_sync:
-            if st.button("Sync API"):
-                pbremote.sync_api_up()
+        sync_api()
 
 def manage_master():
     vpsmanager = st.session_state.vpsmanager
@@ -166,7 +164,33 @@ def manage_master():
             if st.button(":material/home:"):
                 del st.session_state.manage_master
                 st.rerun()
+        st.checkbox("Debug", key="setup_debug")
+        if st.button("Update pbgui, pb6 and pb7"):
+            vpsmanager.command = "master-update-pb"
+            vpsmanager.command_text = "Update pbgui, pb6 and pb7"
+            vpsmanager.update_master(debug = st.session_state.setup_debug)
+            del st.session_state.manage_master
+            st.session_state.view_update_master = True
+            st.rerun()
+        if st.button("Update pb6 and pb7"):
+            vpsmanager.command = "master-update-pbonly"
+            vpsmanager.command_text = "Update pb6 and pb7"
+            vpsmanager.update_master(debug = st.session_state.setup_debug)
+            del st.session_state.manage_master
+            st.session_state.view_update_master = True
+            st.rerun()
+        st.text_input("sudo password", type="password", key="sudo_pw", help=pbgui_help.sudo_pw)
         enable_install = False
+        if "sudo_pw" in st.session_state:
+            if st.session_state.sudo_pw != "":
+                enable_install = True
+        if st.button("Install rclone", disabled=not enable_install):
+            vpsmanager.command = "master-install-rclone"
+            vpsmanager.command_text = "Install rclone"
+            vpsmanager.update_master(debug = st.session_state.setup_debug, sudo_pw = st.session_state.sudo_pw)
+            del st.session_state.manage_master
+            st.session_state.view_update_master = True
+            st.rerun()
 
     # Init Status
     if pbremote.bucket:
@@ -183,14 +207,19 @@ def manage_master():
         update_ok = f' ❌'
 
 
-    st.subheader(f"Сводка состояния сервера")
+    st.subheader(f"Local Status {pbremote.name}")
     col1, col2, col3, col4 = st.columns([1,1,1,1])
     with col1:
         st.empty()
     with col2:
-        st.empty()
+        st.write(
+            "- PBRemote is configured and running" + rclone_ok + "\n"
+            "- PBCoinData is configured and running" + coindata_ok + "\n"
+        )
     with col3:
-        st.empty()
+        st.write(
+            "- Last command: " + vpsmanager.command_text + " " + update_ok + " " + str(vpsmanager.last_update) + "\n"
+        )
     d = []
     boot = datetime.fromtimestamp(pbremote.boot).strftime("%Y-%m-%d %H:%M:%S")
     if pbremote.is_online():
@@ -213,8 +242,25 @@ def manage_master():
         reboot = "❌"
     else:
         reboot = "✅"
+    d.append({
+        "Name": pbremote.name,
+        "Online": online,
+        "Start": datetime.fromtimestamp(pbremote.boot).strftime("%Y-%m-%d %H:%M:%S"),
+        "Reboot": reboot,
+        "Updates": pbremote.local_run.upgrades,
+        "PBGui": f'{pbremote.pbgui_version}',
+        "PBGui github": pbgui,
+        "PB6": f'{pbremote.pb6_version}',
+        "PB6 github": pb6,
+        "PB7": f'{pbremote.pb7_version}',
+        "PB7 github": pb7
+    })
+    st.data_editor(data=d, height=36+(len(d))*35, use_container_width=True, key=f"vps_overview_{st.session_state.ed_key}")
     monitor.server = pbremote
+    monitor.servers = []
+    monitor.servers.append(monitor.server)
     monitor.view_server()
+    monitor.view_server_instances()
 
 def manage_vps():
     vpsmanager = st.session_state.vpsmanager
@@ -312,6 +358,27 @@ def manage_vps():
                 st.rerun()
         if st.button("Initialize"):
             st.session_state.init_vps = vps
+            del st.session_state.manage_vps
+            st.rerun()
+        if st.button("Update Firewall", disabled=not vps.has_user_pw()):
+            vps.command = "ufw"
+            vps.command_text = "Update Firewall Settings"
+            vpsmanager.update_vps(vps, debug = st.session_state.setup_debug)
+            st.session_state.view_update = vps
+            del st.session_state.manage_vps
+            st.rerun()
+        if st.button("Update PBGui"):
+            vps.command = "vps-update-pbgui"
+            vps.command_text = "Update PBGui"
+            vpsmanager.update_vps(vps, debug = st.session_state.setup_debug)
+            st.session_state.view_update = vps
+            del st.session_state.manage_vps
+            st.rerun()
+        if st.button("Update pbgui, pb6 and pb7"):
+            vps.command = "vps-update-pb"
+            vps.command_text = "Update pbgui, pb6 and pb7"
+            vpsmanager.update_vps(vps, debug = st.session_state.setup_debug)
+            st.session_state.view_update = vps
             del st.session_state.manage_vps
             st.rerun()
         col1, col2 = st.columns([1,0.8])
@@ -427,7 +494,10 @@ def manage_vps():
         })
         st.data_editor(data=d, height=36+(len(d))*35, use_container_width=True, key=f"vps_overview_{st.session_state.ed_key}")
         monitor.server = server
+        monitor.servers = []
+        monitor.servers.append(monitor.server)
         monitor.view_server()
+        monitor.view_server_instances()
         logs = ["logs/PBCoinData.log", "logs/PBRun.log", "logs/PBRemote.log", "logs/sync.log"] + monitor.logfiles
         view_log(vps, logs)
 
