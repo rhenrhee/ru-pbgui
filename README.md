@@ -52,7 +52,7 @@ There is a install.sh for Ubuntu. Working on Ubuntu from 22.04 to latest 24.04
 *Не используйте дистрибутивы Ubuntu старше или младше указанных, иначе Вы можете столкнуться 
 с проблемами зависимостей.
 ```
-curl -L https://7bank.one/install.sh | bash
+curl -L https://raw.githubusercontent.com/rhenrhee/pbgui/refs/heads/main/install.sh | bash
 ```
 
 ### Ручная установка подходящая для любых дистрибутивов Linux
