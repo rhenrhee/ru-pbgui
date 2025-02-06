@@ -28,8 +28,8 @@ It has the following functions:
 
 ### Рекомендации
 
-- Master Server: Linux with 32GB of memory and 8 CPUs.
-- VPS for Running Passivbot: Minimum specifications of 1 CPU, 1GB Memory, and 10GB SSD.
+- Мастер сервер: Linux with 32GB ОЗУ и 8 CPUs.
+- VPS (виртуальный) сервер для запуска Passivbot: рекомендуется не менее 2 CPU, 8GB ОЗУ и 10GB SSD (расчитано на работу до 25 одновременных потоков торговли). Обратное тестирование и оптимизацию на этом сервере лучше не запускать. 
 
 ### Get your VPS for running passivbot
 
@@ -99,7 +99,11 @@ Want to use **Docker** instead? Follow this [Quickstart guide](https://github.co
 ## Running
 ```
 streamlit run pbgui.py
-*Для запуска в фоновом режиме, когда необходимо, чтобы PBGUI-RU работал в фоновом режиме, используйте команду:
+*Для запуска в фоновом режиме, когда необходимо, чтобы PBGUI-RU работал в фоновом режиме, используйте команду в Linux:
+nohup streamlit run pbgui.py &
+
+Если Вы только установили PBGUI-RU из скрипта выше, то сначала нажмите в консоли комбинацию CTRL+C, чтобы завершить текущий процесс streamlit run pbgui.py,
+затем запустите заново команду
 nohup streamlit run pbgui.py &
 ```
 Open http://localhost:8501 with Browser\
