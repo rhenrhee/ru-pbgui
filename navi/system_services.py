@@ -1,5 +1,5 @@
 import streamlit as st
-from pbgui_func import set_page_config, is_session_state_not_initialized, is_authenticted, error_popup, info_popup, get_navi_paths, sync_api
+from pbgui_func import set_page_config, is_session_state_not_initialized, is_authenticted, error_popup, info_popup, get_navi_paths
 import pbgui_help
 from Monitor import Monitor
 
@@ -150,11 +150,6 @@ def pbremote_details():
         st.markdown("""---""")
         st.markdown("Remote Servers")
         api_sync = []
-        if st.button(f'View All Instances'):
-            if "server" in st.session_state:
-                del st.session_state.server
-            monitor.servers = st.session_state.pbremote.remote_servers
-            st.rerun()
         for rserver in sorted(st.session_state.pbremote.remote_servers, key=lambda s: s.name):
             if rserver.is_online():
                 color = "green"
@@ -171,7 +166,6 @@ def pbremote_details():
                         rserver.delete_server()
                         pbremote.update_remote_servers()
                         st.rerun()
-        sync_api()
                 
     st.subheader("PBRemote Details")
     pbremote_overview()
@@ -214,14 +208,11 @@ def pbremote_details():
             api_sync_list.append(api.name)
         st.subheader("API not in sync with remote servers:")
         st.write(f"{api_sync_list}")
+        if st.button(f'Sync API-Keys to all',key="sync_api"):
+            pbremote.sync_api_up()
     if "server" in st.session_state:
         monitor.server = st.session_state.server
         monitor.view_server()
-        monitor.servers = []
-        monitor.servers.append(monitor.server)
-        monitor.view_server_instances()
-    elif monitor.servers:
-        monitor.view_server_instances()
     else:
         st.info("Please select a remote server from the sidebar to view details.")
 

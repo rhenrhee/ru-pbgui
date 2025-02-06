@@ -31,63 +31,60 @@ def dashboard():
                 
             # Create the selectbox with the callback
             st.selectbox(
-                "select a dashboard",
+                "",
                 options=['Select a dashboard'] + dashboards,
                 #index=default_index,
                 key='selected_dashboard',
-                on_change=on_select_dashboard,
-                label_visibility="hidden"
+                on_change=on_select_dashboard
             )
 
     
     with st.sidebar:
-        if "edit_dashboard" in st.session_state:
-            col1, col2, col3 = st.columns([1, 1, 2])
+        col1, col2, col3 = st.columns([1, 1, 2])
+        with col1:
+            if st.button(":material/refresh:"):
+                st.rerun()
+        with col2:
+            if st.button(":material/add_box:"):
+                if "dashboard" in st.session_state:
+                    del st.session_state.dashboard
+                st.session_state.dashboard = Dashboard()
+                st.session_state.edit_dashboard = True
+                st.rerun()
+        col1, col2, col3 = st.columns([1, 1, 2])
+        if "dashboard" in st.session_state or "edit_dashboard" in st.session_state:
             with col1:
                 if st.button(":material/save:"):
-                    if st.session_state.dashboard.name:
+                    if "edit_dashboard" in st.session_state:
+                        if st.session_state.dashboard.name:
+                            st.session_state.dashboard.save()
+                            st.session_state.dashboards = st.session_state.dashboard.list_dashboards()
+                            del st.session_state.edit_dashboard
+                            st.session_state.dashboard.load(st.session_state.dashboard.name)
+                            st.rerun()
+                        else:
+                            error_popup("Name is empty")
+                    elif "dashboard" in st.session_state:
                         st.session_state.dashboard.save()
-                        st.session_state.dashboards = st.session_state.dashboard.list_dashboards()
-                        del st.session_state.edit_dashboard
-                        st.session_state.dashboard.load(st.session_state.dashboard.name)
                         st.rerun()
-                    else:
-                        error_popup("Name is empty")
+        if "dashboard" in st.session_state:
             with col2:
-                if st.button(":material/cancel:"):
-                    del st.session_state.edit_dashboard
-                    del st.session_state.dashboard
-                    st.rerun()
+                if st.button(":material/edit:"):
+                    if "edit_dashboard" not in st.session_state:
+                        st.session_state.edit_dashboard = True
+                        st.rerun()
             with col3:
                 if st.button(":material/delete:"):
                     st.session_state.dashboard.delete()
                     st.session_state.dashboards = st.session_state.dashboard.list_dashboards()
-                    del st.session_state.edit_dashboard
                     del st.session_state.dashboard
                     info_popup("Dashboard deleted")
-        else:
-            col1, col2, col3 = st.columns([1, 1, 2])
-            with col1:
-                if st.button(":material/refresh:"):
-                    st.rerun()
-            with col2:
-                if st.button(":material/add_box:"):
-                    if "dashboard" in st.session_state:
-                        del st.session_state.dashboard
-                    st.session_state.dashboard = Dashboard()
-                    st.session_state.edit_dashboard = True
-                    st.rerun()
-            if "dashboard" in st.session_state:
-                with col3:
-                    if st.button(":material/edit:"):
-                        if "edit_dashboard" not in st.session_state:
-                            st.session_state.edit_dashboard = True
-                            st.rerun()
         for db in dashboards:
             if st.button(db):
                 if "edit_dashboard" in st.session_state:
                     del st.session_state.edit_dashboard
                 st.session_state.dashboard = Dashboard(db)
+                # dashboard = st.session_state.dashboard
                 st.rerun()
                 
     if "edit_dashboard" in st.session_state:
