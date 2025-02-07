@@ -103,7 +103,10 @@ streamlit run pbgui.py
 nohup streamlit run pbgui.py &
 
 Если Вы только установили PBGUI-RU из скрипта выше, то сначала нажмите в консоли комбинацию CTRL+C, чтобы завершить текущий процесс streamlit run pbgui.py,
-затем запустите заново команду
+затем выполните в консоле следующие команды:
+source ${venv}/bin/activate
+cd ${pbgui}
+python PBRun.py &
 nohup streamlit run pbgui.py &
 ```
 Open http://localhost:8501 with Browser\
@@ -133,6 +136,9 @@ pbgui=~/software/pbgui # Path to your PBGui installation
 source ${venv}/bin/activate
 cd ${pbgui}
 python PBRun.py &
+Для запуска в фоновом режиме после закрытия сессии замените команду выше на следующую:
+nohup streamlit run pbgui.py &
+
 ```
 
 3. Save the script file and make it executable by running the command: `chmod 755 start.sh`.
