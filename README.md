@@ -5,10 +5,10 @@
 I offer API-Service where I run passivbot for you as a Service.
 Just contact me on Telegram for more information.
 
-# v1.33 (старшая версия сохрнена, однако внесены изменения в связи с невозможностью российских пользователей получить api на площадке coinmarketcap) 
+# v1.33ru
 
 ### Общие сведения
-Passivbot GUI-RU (pbgui_ru) - это графическая надстройка (веб-интверфейс) для Passivbot, написанный на streamlit
+Passivbot GUI-RU (pbgui_ru) - это графическая "оболочка" (веб-интверфейс) для торгового робота Passivbot, написанного на streamlit
 
 It has the following functions:
 - Running, backtesting, and optimization Passivbot v7 and v6 (single and multi).
@@ -20,6 +20,7 @@ It has the following functions:
 - An interface to CoinMarketCap for selecting and filtering coins.
 - Installing and updating your VPS with just a few clicks.
 - And much more to easily manage Passivbot.
+- Русификация интерфейса на русский язык, включая справочную информацию.
 
 ### Требования
 - Python 3.10
