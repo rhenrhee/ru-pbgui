@@ -113,6 +113,7 @@ def get_navi_paths():
         "SYSTEM_API_KEYS":     os.path.join(NAVI_BASE_DIR, "system_api_keys.py"),
         "SYSTEM_VPS_MANAGER":  os.path.join(NAVI_BASE_DIR, "system_vps_manager.py"),
         "SYSTEM_DEBUGLOG":     os.path.join(NAVI_BASE_DIR, "system_debuglog.py"),
+        "SYSTEM_SERVICES":     os.path.join(NAVI_BASE_DIR, "system_services.py"),
 
         "INFO_DASHBOARDS":     os.path.join(NAVI_BASE_DIR, "info_dashboards.py"),
         "INFO_COIN_DATA":      os.path.join(NAVI_BASE_DIR, "info_coin_data.py"),
@@ -138,8 +139,10 @@ def build_navigation():
     # Single Pages
     pM1 = st.Page(paths["SYSTEM_LOGIN"], title="Приветствие", icon=":material/logout:")
     pM2 = st.Page(paths["SYSTEM_API_KEYS"], title="API-ключи", icon=":material/key:")
+    pM3 = st.Page(paths["SYSTEM_SERVICES"], title="PBGUI Services", icon=":material/build:")
     pM4 = st.Page(paths["SYSTEM_VPS_MANAGER"], title="Менеджер VPS", icon=":material/computer:")
     pM5 = st.Page(paths["SYSTEM_DEBUGLOG"], title="DEBUGLOG", icon=":material/terminal:")
+    
 
     pSe1 = st.Page(paths["INFO_DASHBOARDS"], title="Мониторинг", icon=":material/dashboard:")
     pSe2 = st.Page(paths["INFO_COIN_DATA"], title="Анализ торговых пар", icon=":material/monetization_on:")
@@ -159,7 +162,7 @@ def build_navigation():
 
        
     # Page Groups
-    SystemPages = [pM1, pM2, pM4]
+    SystemPages = [pM1, pM2, pM3, pM4]
     
     if get_debuglog().logfile_exists():
         SystemPages.append(pM5)
