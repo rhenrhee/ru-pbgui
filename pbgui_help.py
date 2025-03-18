@@ -1185,23 +1185,24 @@ change_password = """
     ```"""
 
 coin_flags_mode = """
-    -lm or -sm: Long or short mode. Choices:
+    -lm or -sm: Режим лонг и шорт. Выберите:
      [n (normal), m (manual), gs (graceful_stop), p (panic), t (take_profit_only)].
-    Normal mode: passivbot manages the position as normal.
-    Manual mode: passivbot ignores the position.
-    Graceful stop: if there is a position, passivbot will manage it; otherwise, passivbot will not make new positions.
-    Take profit only: passivbot will only manage closing orders.
+    Обычный режим: passivbot работает с позициями в штатном режиме.
+    Manual mode: passivbot будет игнорировать позиции.
+    Graceful stop: торговый робот будет работать с существующими позициями, но новые 
+    открывать не будет.
+    Take profit only: passivbot будет работать только над ордерами на закрытие.
     ```"""
 
 coin_flags_we = """
-    -lw or -sw: Long or short wallet exposure limit.
+    -lw or -sw: Предел риска для лонг и шорт.
     ```"""
 
 coin_flags_config = """
-    -lc: Path to live config. Load all of another config's bot parameters except
+    -lc: Путь в рабочей конфигурации. Загрузите остальные настройки робота за исключением:
      [n_positions, total_wallet_exposure_limit, unstuck_loss_allowance_pct, unstuck_close_pct].
     ```"""
 
 coin_flags_lev = """
-    -lev: Leverage.
+    -lev: кредитное плечо.
     ```"""

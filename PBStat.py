@@ -95,12 +95,12 @@ def main():
     logfile = Path(f'{str(dest)}/PBStat.log')
     sys.stdout = TextIOWrapper(open(logfile,"ab",0), write_through=True)
     sys.stderr = TextIOWrapper(open(logfile,"ab",0), write_through=True)
-    print(f'{datetime.now().isoformat(sep=" ", timespec="seconds")} Start: PBStat')
+    print(f'{datetime.now().isoformat(sep=" ", timespec="seconds")} Запуск: PBStat')
     stat = PBStat()
     if stat.is_running():
         sys.stdout = sys.__stdout__
         sys.stderr = sys.__stderr__
-        print(f'{datetime.now().isoformat(sep=" ", timespec="seconds")} Error: PBStat already started')
+        print(f'{datetime.now().isoformat(sep=" ", timespec="seconds")} Ошибка: PBStat уже запущен')
         exit(1)
     stat.save_pid()
     trade_count = 0
@@ -121,7 +121,7 @@ def main():
             stat.instances = []
             stat.load()
         except Exception as e:
-            print(f'Something went wrong, but continue {e}')
+            print(f'Что пошло не так, но мы продолжим;) {e}')
             traceback.print_exc()
 
 if __name__ == '__main__':
