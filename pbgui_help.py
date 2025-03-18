@@ -1041,8 +1041,8 @@ approved_coins = """
 
 ignored_coins = """
     ```
-    list of coins to ignore
-    If you add coins here, they will be removed from approved_coins.
+    Список торговый пор, которые нужно исключать.
+    Если вы добавите монеты сюда, они будут удалены из списка approved_coins.
     ```"""
 
 dynamic_ignore = """
@@ -1060,128 +1060,134 @@ dynamic_ignore = """
 
 notices_ignore = """
     ```
-    If true, will only trade coins that has no notice warning on CoinMarketCap.
+    Если true, то торговля будет производиться на торговых парах, 
+    о которых нет предупреждения/оповещения на CoinMarketCap.
     ```"""
 
 empty_means_all_approved = """
     ```
-    To combine the ohlcv data from multiple exchanges into a single array.
-    Otherwise, backtest for each exchange individually
+    Объединять данные ohlcv с нескольких бирж в один массив.
+    В противном случае бэктест будет проводиться для каждой биржи отдельно.
     ```"""
 
 gap_tolerance_ohlcvs_minutes = """
     ```
-    If the gap between two consecutive ohlcvs is greater than this value, the bot will not backtest.
+    Если разрыв между двумя последовательными ohlcvs больше этого значения, 
+    бот не будет выполнять бэктест.
     ```"""
 
 combine_ohlcvs = """
     ```
-    If true, will combine ohlcvs from all exchanges.
-    If false, will use ohlcvs from the exchange with the highest volume.
+    Если true, то ohlcvs будут объединяться со всех бирж.
+    Если false, то будут использоваться ohlcvs с биржи с наибольшим объемом.
     ```"""
 
 compress_cache = """
     ```
-    set to true to save disk space. Set to false to load faster.
+    Установите значение true, чтобы сэкономить место на диске. 
+    Установите значение false для ускорения загрузки.
     ```"""
 
 compress_results_file = """
     ```
-    If true, will compress optimize output results file to save space.
+    Если значение установлено true, то для экономии места файл 
+    результатов оптимизации будет сжат.
     ```"""
 
 starting_config = """
     ```
-    Start the optimizer with config.
+    Запуск оптимизации с конфигурацией.
     ```"""
 
 vps_swap = """
     ```
-    recommended swap size for VPS
-    2GB for VPS with 1GB RAM and 10GB SSD
-    5GB for VPS with 2GB RAM and 25GB SSD
-    8GB for VPS with 4GB RAM and 50GB SSD
+    Рекомендуемый размер файла swap на Вашем VPS
+    2GB, если установлено физически 1GB RAM и 10GB SSD
+    5GB, если установлено физически 2GB RAM и 25GB SSD
+    8GB, если установлено физически 4GB RAM и 50GB SSD
     ```"""
 
 vps_ip = """
     ```
-    IP of your VPS (Example: 193.123.150.99)
+    IP адрес Вашего VPS (Например: 193.123.150.99)
     ```"""
 
 vps_hostname = """
     ```
-    New Hostname of your VPS (Example: mypassivbot01)
+    Новое имя хоста (компьютера) на Вашем VPS (Например: mypassivbot01)
     ```"""
 vps_initial_root_pw = """
     ```
-    The initial root password of your VPS
+    Первоначальный пароль суперадминистратора на Вашем VPS.
     ```"""
 
 vps_root_pw = """
     ```
-    The new root password of your VPS
-    This password will be set after the installation
+    Это новый пароль суперадминистратора на Вашем VPS.
+    Этот пароль может потребоваться для запуска инсталлятора.
     ```"""
 
 vps_user = """
     ```
-    Your linux username
-    Use the same user on local and all vps, for easy ssh to your vps
-    The installer will add your public ssh key to the vps user
+    Имя пользователя в системе linux
+    Используйте такое же имя на всех vps, чтобы проще подключаться по ssh 
+    на Ваши vps. Инсталлятор будет добавлять Ваш публичный ключ ssh к 
+    пользователю.
     ```"""
 
 vps_user_pw = """
     ```
-    Your user password on your vps.
-    This will be set when run init.
-    Will be used for sudo when run setup.
+    Ваш пароль доступа к vps.
+    Это необходимо для первоначального запуска.
+    Пароль суперадминистратора будет использоваться для установки.
     ```"""
 
 vps_firewall = """
     ```
-    Enable to install and configure ufw firewall on your vps
+    Включить и настроить ufw firewall на Вашем vps
     ```"""
 
 vps_firewall_ssh_port = """
     ```
-    The ssh port on your vps
+    Порт ssh на Вашем vps
     ```"""
 
 vps_firewall_ssh_ips = """
     ```
-    List of allowed IPs for ssh, separated by comma, empty for all
-    Example: 10.20.10.11, 10.21.22.33
+    Список разрешённых адресов IP для доступа по ssh, разделённых запятой 
+    или оставьте поле пустым, чтобы снять ограничения доступа
+    Например: 10.20.10.11, 10.21.22.33
     ```"""
 
 role = """
     ```
-    If master:
-    - PBRemote will download alive data from the VPS
-    If slave:
-    - PBRemote will upload alive data to the VPS
+    Если мастер:
+    - PBRemote будет загружать актуальные данные с целевого VPS
+    Если ведомый:
+    - PBRemote будет загружать актуальные данные на целевой VPS
     ```"""
 
 sudo_pw = """
     ```
-    The sudo password of your local user
-    This is needed to install:
+    Пароль суперадминистратора от сервера.
+    Это необходимо для установки:
     - rclone
     ```"""
    
 smart_filter = """
     ```
-    This filter is used for smart filter options.
-    "*": Matches all strings.
-    "abc*": Matches any string starting with "abc".
-    "*xyz": Matches any string ending with "xyz".
-    "abc*xyz": Matches any string starting with "abc" and ending with "xyz".
+    Данная опция позволяет настроить умную фильтрацию.
+    "*": Учитываем все строки.
+    "abc*": Найти строки, начинающиеся на "abc".
+    "*xyz": Найти строки, заканчивающиеся на "xyz".
+    "abc*xyz": Найти строки, начинающиеся на "abc" и заканчивающиеся на "xyz".
     ```"""
     
 change_password = """
     ```
-    You can change your password here.
-    If you leave the new password empty, then authentication will be disabled.
-    If authentication is disabled, you can use this dailog to set a new password.
+    Вы можете поменять пароль здесь.
+    Если Вы оставите поле для нового пароля пустым, но авторизация будет отключена. 
+    Чтобы снова включить авторизацию, просто установите новый пароль. 
     ```"""
 
 coin_flags_mode = """
