@@ -1,14 +1,12 @@
 # GUI-RU for Passivbot
 <p align="justify">
-Данный продукт разрабатывается и сопровождается исключительно на личной инициативе и направлен на помощь начинающим и русскоязычным пользователям лучше ориентироваться в данном продукте. Оригинальный разработчик уделил этому не мало времени, и я проявляю подлинное уважение его времени и труду, поэтому оставляю его реквизиты для вознаграждения без изменений. Параллельно с этим проектом развивается схожее по функционалу решение, направленное на предоставление графической оболочки для управления не только PassivBot, но и других торговых роботов. Ознакомиться Вы можете по ссылке здесь: 
-  
-This product is developed and maintained solely on personal initiative and is aimed at helping beginners and Russian-speaking users to better navigate this product. The original developer has devoted a lot of time to this, and I show true respect for his time and labor, so I leave his details for remuneration unchanged. In parallel with this project, a similar solution is being developed, aimed at providing a graphical shell for controlling not only PassivBot, but also other trading robots. You can familiarize yourself with it by clicking here: 
-
-本產品的開發和維護純屬個人自發性，旨在幫助初學者和俄語使用者更好地瀏覽本產品。原開發者為此投入了大量時間，我對他的時間和勞動表示真正的尊重，因此我保留他的報酬細節不變。與此專案並行的是，一個類似的解決方案正在開發中，旨在提供一個圖形化的外殼，不僅可以控制 PassivBot，還可以控制其他交易機器人。您可以點擊這裡熟悉一下： 
+Данный продукт разрабатывается и сопровождается исключительно на личной инициативе и направлен на помощь начинающим и русскоязычным пользователям лучше ориентироваться в данном продукте. Оригинальный разработчик уделил этому не мало времени, и я проявляю подлинное уважение его времени и труду, поэтому оставляю его реквизиты для вознаграждения без изменений. Параллельно с этим проектом развивается схожее по функционалу решение, направленное на предоставление графической оболочки для управления не только PassivBot, но и других торговых роботов. Ознакомиться Вы можете по ссылке здесь: </p>
+<p align="justify">  
+This product is developed and maintained solely on personal initiative and is aimed at helping beginners and Russian-speaking users to better navigate this product. The original developer has devoted a lot of time to this, and I show true respect for his time and labor, so I leave his details for remuneration unchanged. In parallel with this project, a similar solution is being developed, aimed at providing a graphical shell for controlling not only PassivBot, but also other trading robots. You can familiarize yourself with it by clicking here: </p>
+<p align="justify">  
+本產品的開發和維護純屬個人自發性，旨在幫助初學者和俄語使用者更好地瀏覽本產品。原開發者為此投入了大量時間，我對他的時間和勞動表示真正的尊重，因此我保留他的報酬細節不變。與此專案並行的是，一個類似的解決方案正在開發中，旨在提供一個圖形化的外殼，不僅可以控制 PassivBot，還可以控制其他交易機器人。您可以點擊這裡熟悉一下： </p>
 
 https://github.com/rhenrhee/Quantitative-Trader/
-
-</p>
 
 ## Связь/Поддержка в Telegram: https://t.me/passivbotru
 ## Официальный сайт поддержки русскоязычной ветки проекта: https://quanttrading.ru/
@@ -18,7 +16,7 @@ https://github.com/rhenrhee/Quantitative-Trader/
 ### Общие сведения
 Passivbot GUI-RU (pbgui_ru) - это графическая "оболочка" (веб-интверфейс) для торгового робота Passivbot, написанного на streamlit
 
-It has the following functions:
+Функционал, доступный в текущей версии продукта:
 - Running, backtesting, and optimization Passivbot v7 and v6 (single and multi).
 - Installing Passivbot configurations on your VPS.
 - Starting and stopping Passivbot instances on your VPS.
