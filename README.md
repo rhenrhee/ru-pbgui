@@ -1,11 +1,9 @@
 # GUI-RU for Passivbot
 
 ## Связь/Поддержка в Telegram: https://t.me/passivbotru
-## Join one of my copytrading to support: https://manicpt.streamlit.app/
-I offer API-Service where I run passivbot for you as a Service.
-Just contact me on Telegram for more information.
+## Официальный сайт поддержки русскоязычной ветки проекта: https://quanttrading.ru/
 
-# v1.33ru
+# v1.33-ru
 
 ### Общие сведения
 Passivbot GUI-RU (pbgui_ru) - это графическая "оболочка" (веб-интверфейс) для торгового робота Passivbot, написанного на streamlit
