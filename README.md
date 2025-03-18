@@ -16,7 +16,7 @@ https://github.com/rhenrhee/Quantitative-Trader/
 ### Общие сведения
 Passivbot GUI-RU (pbgui_ru) - это графическая "оболочка" (веб-интверфейс) для торгового робота Passivbot, написанного на streamlit
 
-It has the following functions:
+Функционал, доступный в текущей версии продукта:
 - Running, backtesting, and optimization Passivbot v7 and v6 (single and multi).
 - Installing Passivbot configurations on your VPS.
 - Starting and stopping Passivbot instances on your VPS.
